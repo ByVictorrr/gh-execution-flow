@@ -2,6 +2,8 @@ name: Matrix Demo
 on: push
 jobs:
   build:
+    # continue even if some of the jobs in the matrix fail
+    continue-on-error: true
     strategy:
       matrix:
         # will run for all combinations: reason why its called a matrix
