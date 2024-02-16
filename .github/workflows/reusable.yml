@@ -1,0 +1,9 @@
+name: Reusable Deploy
+# special event - allows this workflow to be called from others
+on: workflow_call
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output Information
+        run: echo "deploying && uploading..."
