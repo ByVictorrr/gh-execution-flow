@@ -11,11 +11,13 @@ jobs:
         uses: actions/checkout@v3
       - name: Cache dependencies
         id: cache
+        # https://github.com/actions/cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Lint code
         run: npm run lint
@@ -26,11 +28,13 @@ jobs:
         uses: actions/checkout@v3
       - name: Cache dependencies
         id: cache
+        # https://github.com/actions/cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Test code
         # allows you to reference that step in your job
@@ -52,11 +56,13 @@ jobs:
         uses: actions/checkout@v3
       - name: Cache dependencies
         id: cache
+        # https://github.com/actions/cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Build website
         id: build-website
@@ -86,4 +92,4 @@ jobs:
       - name: Output information
         run: |
           echo "Something went wrong"
-          echo "${{ github }}"
+          echo "${{ toJSON(github) }}"
